@@ -35,4 +35,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         fmt::fmt
         Qt${QT_VERSION_MAJOR}::Core
         TinyOrm::TinyOrm
+        bs_routes
 )
