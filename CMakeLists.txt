@@ -19,10 +19,18 @@ if (Boost_FOUND)
     include_directories(SYSTEM ${Boost_INCLUDE_DIR})
 endif ()
 
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
+find_package(TinyOrm 0.36.5 CONFIG REQUIRED)
+
+add_subdirectory(database)
+
 add_executable(${PROJECT_NAME} src/main.cpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
         httplib::httplib
         nlohmann_json::nlohmann_json
         fmt::fmt
+        Qt${QT_VERSION_MAJOR}::Core
+        TinyOrm::TinyOrm
 )
