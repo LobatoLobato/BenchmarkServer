@@ -1,0 +1,12 @@
+POST {{server_url}}/aoc/solution
+Content-Type: application/json
+
+{
+  "author": "lobato",
+  "repo_url": "https://github.com/LobatoLobato/AdventOfCode",
+  "day": 1,
+  "part": 1
+}
+
+###
+GET {{server_url}}/aoc/leaderboard/1/1
