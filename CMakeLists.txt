@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.27)
 project(BenchmarkServer)
 
 set(CMAKE_CXX_STANDARD 23)
+add_compile_definitions(CLONED_REPOSITORIES_PATH="/tmp/benchmark_server/cloned_repositories")
 
 include(FetchContent)
 
@@ -23,6 +24,7 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
 find_package(TinyOrm 0.36.5 CONFIG REQUIRED)
 
+add_subdirectory(src)
 add_subdirectory(database)
 
 add_executable(${PROJECT_NAME} src/main.cpp)
