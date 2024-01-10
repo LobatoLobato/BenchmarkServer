@@ -1,0 +1,7 @@
+cmake-build*
+http_test_requests
+.clang-format
+Dockerfile
+.gitignore
+.git
+.idea
