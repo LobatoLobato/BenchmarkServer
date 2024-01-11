@@ -29,7 +29,12 @@ int main() {
       }
     );
 
-    server.set_pre_routing_handler([](const Request&, Response& res) {
+    server.set_pre_routing_handler([](const Request& req, Response& res) {
+      std::cout << req.method << " request on " << req.path << "\n";
+
+      for (auto [header, value] : req.headers) { std::cout << header << ": " << value << "\n"; }
+      if (!req.body.empty()) { std::cout << "Body: " << nlohmann::json::parse(req.body).dump(2) << "\n"; }
+
       connectCurrentThreadToDatabase();
       return httplib::Server::HandlerResponse::Unhandled;
     });
