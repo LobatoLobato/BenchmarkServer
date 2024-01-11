@@ -39,6 +39,9 @@ int main() {
       return httplib::Server::HandlerResponse::Unhandled;
     });
 
+    server.set_keep_alive_timeout(300);
+    server.set_keep_alive_max_count(300);
+
     server.new_task_queue = [] { return new httplib::ThreadPool(1); };
 
     bs::routes::aoc::attachTo(server);
