@@ -1,37 +1,4 @@
-FROM ubuntu:latest as build
-
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install build-essential libtool autoconf curl zip unzip wget libssl-dev ninja-build git -y
-
-# BUILDING CMAKE
-ENV CMAKE_VERSION=3.27
-ENV CMAKE_BUILD=7
-ENV CMAKE_FULL_VERSION_NAME=cmake-$CMAKE_VERSION.$CMAKE_BUILD
-
-WORKDIR /tmp
-RUN wget https://cmake.org/files/v$CMAKE_VERSION/$CMAKE_FULL_VERSION_NAME.tar.gz \
-    && tar -xzvf $CMAKE_FULL_VERSION_NAME.tar.gz \
-    && rm -rf $CMAKE_FULL_VERSION_NAME.tar.gz
-
-WORKDIR /tmp/$CMAKE_FULL_VERSION_NAME
-RUN ./bootstrap --parallel=$(nproc) \
-  && make -j$(nproc)\
-  && make install\
-  && rm -rf /tmp/$CMAKE_FULL_VERSION_NAME
-
-# BUILDING BOOST
-ENV BOOST_VERSION=1_84_0
-
-WORKDIR /tmp
-RUN BOOST_VERSION_DOTS=$(echo "$BOOST_VERSION" | sed 's/_/./g') && \
-    wget https://archives.boost.io/release/$BOOST_VERSION_DOTS/source/boost_$BOOST_VERSION.tar.bz2 \
-  && tar --bzip2 -xf /tmp/boost_$BOOST_VERSION.tar.bz2 \
-  && rm -rf /tmp/boost_$BOOST_VERSION.tar.bz2
-
-WORKDIR /tmp/boost_$BOOST_VERSION
-RUN ./bootstrap.sh \
-  && ./b2 install \
-  && rm -rf /tmp/boost_$BOOST_VERSION
+FROM lobatolobato/boost:1.84.0-ubuntu as build
 
 # INSTALLING VCPKG
 WORKDIR /
