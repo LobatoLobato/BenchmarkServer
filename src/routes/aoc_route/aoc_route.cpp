@@ -40,16 +40,18 @@ namespace bs::routes
     },
     SubRoute{
       &Server::Post, "/aoc/solution", [](const Request& req, Response& res) {
+        const static std::string padding = std::string(4096, ' ') + "\n";
         auto* solution = new bs::AocSolution(json::parse(req.body));
 
-        res.set_header("Transfer-Encoding", "chunked");
+        res.status = httplib::PartialContent_206;
+        res.set_header("Connection", "keep-alive");
         res.set_chunked_content_provider("application/stream+json", [solution](size_t, DataSink& sink) -> bool {
             try {
-                sink.os << json{{ "message", "Clonando solução..." }}.dump();
+                sink.os << json{{ "message", "Clonando solução..." }}.dump() + padding;
                 solution->clone();
-                sink.os << json{{ "message", "Construindo solução..." }}.dump();
+                sink.os << json{{ "message", "Construindo solução..." }}.dump() + padding;
                 solution->build();
-                sink.os << json{{ "message", "Rodando benchmark..." }}.dump();
+                sink.os << json{{ "message", "Rodando benchmark..." }}.dump() + padding;
                 std::string benchmark_output = solution->benchmark();
                 sink.os << json{{ "data",             solution->toJson() },
                                 { "benchmark_output", benchmark_output }}.dump();
