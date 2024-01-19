@@ -50,6 +50,8 @@ int main() {
             }
         }
         if (!req.body.empty()) { std::cout << "Body: " << nlohmann::json::parse(req.body).dump(2) << "\n"; }
+        
+        std::cout << std::flush;
     });
 
     server.set_pre_routing_handler([](const Request& req, Response& res) {
