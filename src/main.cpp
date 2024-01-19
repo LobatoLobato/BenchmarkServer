@@ -31,8 +31,24 @@ int main() {
 
     server.set_pre_routing_handler([](const Request& req, Response& res) {
       std::cout << req.method << " request on " << req.path << "\n";
-
-      for (auto [header, value] : req.headers) { std::cout << header << ": " << value << "\n"; }
+      for (auto [header, value] : req.headers) {
+          static const std::vector<std::string> headers_to_log = {
+            "Accept",
+            "Accept-Enconding",
+            "Connection",
+            "Content-Length",
+            "Content-Type",
+            "REMOTE_ADDR",
+            "REMOTE_PORT",
+            "User-Agent",
+            "Cf-Connecting-Ip",
+            "Cf-Ipcountry",
+          };
+          
+          if(std::find(headers_to_log.begin(), headers_to_log.end(), header) != headers_to_log.end()) {
+              std::cout << header << ": " << value << "\n";
+          }
+      }
       if (!req.body.empty()) { std::cout << "Body: " << nlohmann::json::parse(req.body).dump(2) << "\n"; }
 
       connectCurrentThreadToDatabase();
