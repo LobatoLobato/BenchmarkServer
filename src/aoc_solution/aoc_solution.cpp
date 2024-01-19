@@ -11,8 +11,8 @@ using fmt::format;
 bs::AocSolution::AocSolution(const std::string& author, const std::string& repo_url, int day, int part)
   : author(author), day(day), part(part),
     AbstractSolution(
-      repo_url, format("{}_solution", author),
-      format("{}_solution_{}_{}", author, day, part),
+      repo_url, format("{}_aoc_solution", author),
+      format("{}_aoc_solution", author),
       { format("DAY={}", day), format("PART{}=1", part) }
     ) { }
 
