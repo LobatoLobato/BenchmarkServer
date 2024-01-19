@@ -32,14 +32,19 @@ void bs::AbstractSolution::clone() {
 }
 
 void bs::AbstractSolution::build() {
-    Docker::Output docker_tag = Docker::tag(tag, tag + "_old");
-    if(docker_tag.exit_code != 0) { throw std::runtime_error(boost::join(docker_tag.data, "\n")); }
-    
+    const bool image_exists = Docker::imageExists(tag);
+    if(image_exists) {
+        Docker::Output docker_tag = Docker::tag(tag, tag + "_old");
+        if (docker_tag.exit_code != 0) { throw std::runtime_error(boost::join(docker_tag.data, "\n")); }
+    }
+
     Docker::Output docker_build = Docker::build(tag, full_clone_path, { }, build_args);
     if (docker_build.exit_code != 0) { throw std::runtime_error(boost::join(docker_build.data, "\n")); }
     
-    Docker::Output docker_rmi = Docker::rmi(tag + "_old");
-    if(docker_rmi.exit_code != 0) { throw std::runtime_error(boost::join(docker_rmi.data, "\n")); }
+    if(image_exists) {
+        Docker::Output docker_rmi = Docker::rmi(tag + "_old");
+        if (docker_rmi.exit_code != 0) { throw std::runtime_error(boost::join(docker_rmi.data, "\n")); }
+    }
 }
 
 std::string bs::AbstractSolution::benchmark() {

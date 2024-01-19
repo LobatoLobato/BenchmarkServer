@@ -28,6 +28,8 @@ namespace bs
       
       static Docker::Output rmi(const std::string& image_tag);
       
+      static bool imageExists(const std::string& image_tag);
+      
       static Docker::Output run(const std::string& container_name, ArgList args, const ArgList& container_args = { });
 
   private:

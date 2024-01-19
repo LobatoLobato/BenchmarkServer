@@ -5,6 +5,7 @@
 #include "bs/docker.hpp"
 #include <boost/filesystem.hpp>
 #include <boost/process.hpp>
+#include <boost/algorithm/string/join.hpp>
 
 namespace bp = boost::process;
 namespace ba = boost::algorithm;
@@ -54,4 +55,7 @@ bs::Docker::Output bs::Docker::spawnCommand(const char* command, const ArgList& 
     c.wait();
     return { output, c.exit_code() };
 }
-
+bool bs::Docker::imageExists(const std::string& image_tag) {
+    Docker::Output output = spawnCommand("history", {image_tag});
+    return !boost::join(output.data, "\n").contains("No such image");
+}
