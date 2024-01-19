@@ -21,6 +21,7 @@ if (Boost_FOUND)
 endif ()
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
+message(STATUS "Found Qt ${Qt${QT_VERSION_MAJOR}_VERSION}")
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
 find_package(TinyOrm 0.36.5 CONFIG REQUIRED)
 

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="tom:migrate" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="migrate" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://$CMakeProjectDir$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Project" TARGET_NAME="tom" CONFIG_NAME="Debug-WSL" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="tom">
+  <configuration default="false" name="tom:migrate" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="migrate" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://$CMakeProjectDir$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BenchmarkServer" TARGET_NAME="tom" CONFIG_NAME="Debug-WSL" RUN_TARGET_PROJECT_NAME="BenchmarkServer" RUN_TARGET_NAME="tom">
     <envs>
       <env name="DB_MYSQL_HOST" value="172.27.176.1" />
       <env name="DB_MYSQL_DATABASE" value="benchmarkdatabase" />

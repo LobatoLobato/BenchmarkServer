@@ -21,6 +21,14 @@ bs::Docker::Output bs::Docker::build(
     return spawnCommand("build", args);
 }
 
+bs::Docker::Output bs::Docker::tag(const std::string& image_tag, const std::string& new_image_tag) {
+    return spawnCommand("tag", {image_tag, new_image_tag});
+}
+
+bs::Docker::Output bs::Docker::rmi(const std::string& image_tag) {
+    return spawnCommand("rmi", {image_tag});
+}
+
 bs::Docker::Output bs::Docker::run(
   const std::string& container_name,
   ArgList args,

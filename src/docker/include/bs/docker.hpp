@@ -23,7 +23,11 @@ namespace bs
         ArgList args,
         const ArgList& build_args = { }
       );
-
+      
+      static Docker::Output tag(const std::string& image_tag, const std::string& new_image_tag);
+      
+      static Docker::Output rmi(const std::string& image_tag);
+      
       static Docker::Output run(const std::string& container_name, ArgList args, const ArgList& container_args = { });
 
   private:
